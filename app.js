@@ -11,12 +11,12 @@
  **********************************************************************************************************************/
 
 //Import das dependências do app
-const express   = require('express');
-const cors      = require('cors');
+const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 //Import do arquivo de funções
-const dados     = require('./module/functions.js');
+const dados = require('./module/functions.js');
 
 //Define uma porta padrão da API, se for em um servidor de nuvem não tem acesso a porta
 //Em execução local define 8080
@@ -54,6 +54,40 @@ app.get('/v1/estado/:uf', (request, response) => {
     response.json(estadoBySigla);
 });
 
-app.listen(PORT, function(){
+app.get('/v1/capital/:uf', (request, response) => {
+    let sigla = request.params.uf;
+
+    let capitalBySigla = dados.getCapitalByUf(sigla);
+
+    response.status(capitalBySigla.statuscode);
+    response.json(capitalBySigla);
+});
+
+app.get('/v1/estados/:regiao', (request, response) => {
+    let regiao = request.params.regiao;
+
+    let estadosByRegiao = dados.getEstadosByRegiao(regiao);
+
+    response.status(estadosByRegiao.statuscode);
+    response.json(estadosByRegiao);
+});
+
+app.get('/v1/estados-capital', (request, response) => {
+    let estadosIsCapital = dados.getEstadosIsCapitalByCountry();
+
+    response.status(estadosIsCapital.statuscode);
+    response.json(estadosIsCapital);
+});
+
+app.get('/v1/cidades/:uf', (request, response) => {
+    let sigla = request.params.uf;
+
+    let cidades = dados.getCidadesBySigla(sigla);
+
+    response.status(cidades.statuscode);
+    response.json(cidades);
+});
+
+app.listen(PORT, function() {
     console.log('API aguardando requisições...')
 })
