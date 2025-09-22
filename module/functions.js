@@ -175,23 +175,21 @@ const getCidadesBySigla = (uf) => {
     };
 
     let estados = listaDeEstados.estados;
-    let estadoById = estados.find(estado => estado.sigla === sigla);
-
-    message.uf = estadoById.sigla;
-    message.descricao = estadoById.nome;
-
-    estadoById.cidades.forEach(cidade => {
-        let nome = cidade.nome;
-
-        message.cidades.push(nome);
+    estados.forEach(estado => {
+        if(estado.sigla === sigla) {
+            message.uf = estado.sigla;
+            message.descricao = estado.nome;
+            message.quantidade_cidades = estado.cidades.length;
+            estado.cidades.forEach(cidade => {
+                message.cidades.push(cidade.nome);
+            })
+        }
     })
 
-    message.quantidade_cidades = message.cidades.length;
-
-    if(message.cidades.length > 0)
-        return message;
-    else
-        return MESSAGE_ERROR;
+   if(message.uf === sigla)
+    return message;
+   else
+    return MESSAGE_ERROR
 };
 
 module.exports = {
