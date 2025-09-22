@@ -37,7 +37,9 @@ app.use((request, response, next) => {
 //Resquest -> recebe os dados da requisição;
 //Response -> envia os dados na API.
 
-//EndPoints
+//==========EndPoints==========
+
+//EndPoint que lista todos os estados
 app.get('/v1/estados', (request, response) => {
     let estados = dados.getAllEstados();
 
@@ -45,6 +47,7 @@ app.get('/v1/estados', (request, response) => {
     response.json(estados);
 });
 
+//EndPoint que retorna um estado por UF
 app.get('/v1/estado/:uf', (request, response) => {
     let sigla = request.params.uf;
 
@@ -54,6 +57,7 @@ app.get('/v1/estado/:uf', (request, response) => {
     response.json(estadoBySigla);
 });
 
+//EndPoint que retorna a capital de um estado por UF
 app.get('/v1/capital/:uf', (request, response) => {
     let sigla = request.params.uf;
 
@@ -63,6 +67,7 @@ app.get('/v1/capital/:uf', (request, response) => {
     response.json(capitalBySigla);
 });
 
+//EndPoint que retorna todos os estados de uma REGIÃO
 app.get('/v1/estados/:regiao', (request, response) => {
     let regiao = request.params.regiao;
 
@@ -72,13 +77,15 @@ app.get('/v1/estados/:regiao', (request, response) => {
     response.json(estadosByRegiao);
 });
 
-app.get('/v1/estados-capital', (request, response) => {
+//EndPoint que retorna todos os estados que são e já foram capitais do Brasil
+app.get('/v1/estados/capital', (request, response) => {
     let estadosIsCapital = dados.getEstadosIsCapitalByCountry();
 
     response.status(estadosIsCapital.statuscode);
     response.json(estadosIsCapital);
 });
 
+//EndPoint que retorna todas as cidades de um estado por UF
 app.get('/v1/cidades/:uf', (request, response) => {
     let sigla = request.params.uf;
 
