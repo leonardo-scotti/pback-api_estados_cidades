@@ -78,11 +78,12 @@ app.get('/v1/estados/:regiao', (request, response) => {
 });
 
 //EndPoint que retorna todos os estados que são e já foram capitais do Brasil
-app.get('/v1/estados/capital', (request, response) => {
+app.get('/v1/capital-pais', (request, response) => {
     let estadosIsCapital = dados.getEstadosIsCapitalByCountry();
 
     response.status(estadosIsCapital.statuscode);
     response.json(estadosIsCapital);
+    console.log(estadosIsCapital)
 });
 
 //EndPoint que retorna todas as cidades de um estado por UF

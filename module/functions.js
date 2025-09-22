@@ -154,7 +154,11 @@ const getEstadosIsCapitalByCountry = () => {
         }
     });
 
-    return message;
+    if(message.capitais.length > 0){
+        return message
+    } else {
+        return MESSAGE_ERROR
+    }
 };
 
 const getCidadesBySigla = (uf) => {
